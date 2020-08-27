@@ -1,11 +1,18 @@
 package pvars.arsenalquan.models;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "category")
 public class Category {
 
@@ -18,16 +25,20 @@ public class Category {
     private String loaiTin;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @NotBlank(message = "Thông tin không được bỏ trống")
     private Date ngayTao;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     private Date ngayThayDoi;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedBy
     @NotBlank(message = "Thông tin không được bỏ trống")
     private Date taoBoi;
 
+    @LastModifiedBy
     private Date thayDoiBoi;
 
     public Category() {

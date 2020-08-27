@@ -3,6 +3,8 @@ package pvars.arsenalquan.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -27,9 +29,10 @@ public class User {
     @Size(max = 30)
     private String trangThai;
 
-    @ManyToOne
-    @JoinColumn(name = "roleId")
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"),
+        inverseJoinColumns = @JoinColumn(name = "roleId"))
+    private List<Role> roles = new ArrayList<>();
 
     public User() {
     }
@@ -74,21 +77,21 @@ public class User {
         this.trangThai = trangThai;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
-    public User(Long id, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String username, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String password, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String hoTen, @Size(max = 30) String trangThai, Role role) {
+    public User(Long id, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String username, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String password, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String hoTen, @Size(max = 30) String trangThai, List<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.hoTen = hoTen;
         this.trangThai = trangThai;
-        this.role = role;
+        this.roles = roles;
     }
 }
 

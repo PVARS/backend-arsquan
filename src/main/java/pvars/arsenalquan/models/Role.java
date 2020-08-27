@@ -2,6 +2,8 @@ package pvars.arsenalquan.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -13,6 +15,9 @@ public class Role {
 
     @NotBlank(message = "Thông tin không được bỏ trống")
     private String vaiTro;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users = new ArrayList<>();
 
     public Role() {
     }
@@ -33,8 +38,17 @@ public class Role {
         this.vaiTro = vaiTro;
     }
 
-    public Role(Long id, @NotBlank(message = "Thông tin không được bỏ trống") String vaiTro) {
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public Role(Long id, @NotBlank(message = "Thông tin không được bỏ trống") String vaiTro, List<User> users) {
         this.id = id;
         this.vaiTro = vaiTro;
+        this.users = users;
     }
 }
