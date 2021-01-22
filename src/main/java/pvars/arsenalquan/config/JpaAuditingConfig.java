@@ -14,19 +14,21 @@ import java.util.Optional;
 public class JpaAuditingConfig {
 
     @Bean
-    public AuditorAware<String> auditorProvider() {
-        return new AuditorAwareImpl();
+    public AuditorAware<String> auditorProvider(){
+        return new AuditorAwareImpl() {
+        };
     }
 
-    public static class AuditorAwareImpl implements AuditorAware<String> {
+    public static class AuditorAwareImpl implements AuditorAware<String>{
+
         @Override
         public Optional<String> getCurrentAuditor() {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null) {
+            if (authentication == null){
                 return null;
             }
             return Optional.of(authentication.getName());
         }
     }
-}
 
+}

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/category")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryController {
 
     @Autowired
@@ -57,11 +58,11 @@ public class CategoryController {
         List<Category> categories = categoryRepository.findAll();
         categories = categories.stream().filter(
             item ->item.getId().toString().contains(searchString.getSearchString())
-                || item.getLoaiTin().contains(searchString.getSearchString())
-                || item.getNgayTao().toString().contains(searchString.getSearchString())
-                || item.getNgayThayDoi().toString().contains(searchString.getSearchString())
-                || item.getTaoBoi().toString().contains(searchString.getSearchString())
-                || item.getThayDoiBoi().toString().contains(searchString.getSearchString())
+                || item.getType().contains(searchString.getSearchString())
+                || item.getCreateDate().toString().contains(searchString.getSearchString())
+                || item.getUpdateDate().toString().contains(searchString.getSearchString())
+                || item.getCreateBy().toString().contains(searchString.getSearchString())
+                || item.getUpdateBy().toString().contains(searchString.getSearchString())
         ).collect(Collectors.toList());
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }

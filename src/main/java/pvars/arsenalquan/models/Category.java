@@ -12,8 +12,8 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "category")
+@EntityListeners(AuditingEntityListener.class)
 public class Category {
 
     @Id
@@ -22,24 +22,19 @@ public class Category {
 
     @NotBlank(message = "Thông tin không được bỏ trống")
     @Size(max = 50)
-    private String loaiTin;
+    private String type;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @NotBlank(message = "Thông tin không được bỏ trống")
-    private Date ngayTao;
+    private Date createDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
-    private Date ngayThayDoi;
+    private Date updateDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedBy
-    @NotBlank(message = "Thông tin không được bỏ trống")
-    private Date taoBoi;
+    private String createBy;
 
     @LastModifiedBy
-    private Date thayDoiBoi;
+    private String updateBy;
 
     public Category() {
     }
@@ -48,56 +43,44 @@ public class Category {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public Category(Long id, @NotBlank(message = "Thông tin không được bỏ trống") @Size(max = 50) String type, Date createDate, Date updateDate, String createBy, String updateBy) {
         this.id = id;
-    }
-
-    public String getLoaiTin() {
-        return loaiTin;
-    }
-
-    public void setLoaiTin(String loaiTin) {
-        this.loaiTin = loaiTin;
-    }
-
-    public Date getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(Date ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public Date getNgayThayDoi() {
-        return ngayThayDoi;
-    }
-
-    public void setNgayThayDoi(Date ngayThayDoi) {
-        this.ngayThayDoi = ngayThayDoi;
-    }
-
-    public Date getTaoBoi() {
-        return taoBoi;
-    }
-
-    public void setTaoBoi(Date taoBoi) {
-        this.taoBoi = taoBoi;
-    }
-
-    public Date getThayDoiBoi() {
-        return thayDoiBoi;
-    }
-
-    public void setThayDoiBoi(Date thayDoiBoi) {
-        this.thayDoiBoi = thayDoiBoi;
-    }
-
-    public Category(Long id, @NotBlank(message = "Thông tin không được bỏ trống") @Size(max = 50) String loaiTin, @NotBlank(message = "Thông tin không được bỏ trống") Date ngayTao, @NotBlank(message = "Thông tin không được bỏ trống") Date ngayThayDoi, @NotBlank(message = "Thông tin không được bỏ trống") Date taoBoi, @NotBlank(message = "Thông tin không được bỏ trống") Date thayDoiBoi) {
-        this.id = id;
-        this.loaiTin = loaiTin;
-        this.ngayTao = ngayTao;
-        this.ngayThayDoi = ngayThayDoi;
-        this.taoBoi = taoBoi;
-        this.thayDoiBoi = thayDoiBoi;
+        this.type = type;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
     }
 }

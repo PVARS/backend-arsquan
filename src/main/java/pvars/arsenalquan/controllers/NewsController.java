@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/news")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class NewsController {
 
     @Autowired
@@ -30,6 +31,18 @@ public class NewsController {
     @GetMapping("/")
     public ResponseEntity<List<News>> getAll() throws IOException {
         List<News> news = newsRepository.findAll();
+        return new ResponseEntity<>(news, HttpStatus.OK);
+    }
+
+    @GetMapping("/getSortDateASC")
+    public ResponseEntity<List<News>> getSortDateASC() throws IOException {
+        List<News> news = newsRepository.sortDateASC();
+        return new ResponseEntity<>(news, HttpStatus.OK);
+    }
+
+    @GetMapping("/getSortDateDESC")
+    public ResponseEntity<List<News>> getSortDateDESC() throws IOException {
+        List<News> news = newsRepository.sortDateDESC();
         return new ResponseEntity<>(news, HttpStatus.OK);
     }
 
@@ -52,17 +65,17 @@ public class NewsController {
         return new ResponseEntity(new ResponseMessage("Xoá thành công"), HttpStatus.OK);
     }
 
-    @PostMapping("/searchAllColumn")
+    @PostMapping("/searchAll")
     public ResponseEntity<?> showEditForm(@RequestBody SearchForm searchString) {
         List<News> news = newsRepository.findAll();
         news = news.stream().filter(
                 item ->item.getId().toString().contains(searchString.getSearchString())
-                        || item.getTieuDe().contains(searchString.getSearchString())
-                        || item.getMoTaNgan().contains(searchString.getSearchString())
-                        || item.getNgayTao().toString().contains(searchString.getSearchString())
-                        || item.getNgayThayDoi().toString().contains(searchString.getSearchString())
-                        || item.getTaoBoi().toString().contains(searchString.getSearchString())
-                        || item.getThayDoiBoi().toString().contains(searchString.getSearchString())
+                        || item.getTitle().contains(searchString.getSearchString())
+                        || item.getShortDesciption().contains(searchString.getSearchString())
+                        || item.getCreateDate().toString().contains(searchString.getSearchString())
+                        || item.getUpdateDate().toString().contains(searchString.getSearchString())
+                        || item.getCreateBy().toString().contains(searchString.getSearchString())
+                        || item.getUpdateBy().toString().contains(searchString.getSearchString())
         ).collect(Collectors.toList());
         return new ResponseEntity<>(news, HttpStatus.OK);
     }

@@ -1,5 +1,10 @@
 package pvars.arsenalquan.models;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,43 +22,38 @@ public class News {
     private String thumbnail;
 
     @NotBlank(message = "Thông tin không được để trống")
-    private String tieuDe;
+    private String title;
 
     @Size(max = 200)
-    private String moTaNgan;
+    private String shortDesciption;
 
     @NotBlank(message = "Thông tin không được bỏ trống")
     @Lob
-    private String noiDung;
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
 
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @NotBlank(message = "Thông tin không được bỏ trống")
-    private Date ngayTao;
+    private Date createDate;
 
+    @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @NotBlank(message = "Thông tin không được bỏ trống")
-    private Date ngayThayDoi;
+    private Date updateDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @NotBlank(message = "Thông tin không được bỏ trống")
-    private Date taoBoi;
+    @CreatedBy
+    private String createBy;
 
-    @NotBlank(message = "Thông tin không được bỏ trống")
-    private Date thayDoiBoi;
+    @LastModifiedBy
+    private String updateBy;
 
     public News() {
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getThumbnail() {
@@ -64,28 +64,28 @@ public class News {
         this.thumbnail = thumbnail;
     }
 
-    public String getTieuDe() {
-        return tieuDe;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTieuDe(String tieuDe) {
-        this.tieuDe = tieuDe;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMoTaNgan() {
-        return moTaNgan;
+    public String getShortDesciption() {
+        return shortDesciption;
     }
 
-    public void setMoTaNgan(String moTaNgan) {
-        this.moTaNgan = moTaNgan;
+    public void setShortDesciption(String shortDesciption) {
+        this.shortDesciption = shortDesciption;
     }
 
-    public String getNoiDung() {
-        return noiDung;
+    public String getContent() {
+        return content;
     }
 
-    public void setNoiDung(String noiDung) {
-        this.noiDung = noiDung;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Category getCategory() {
@@ -96,48 +96,40 @@ public class News {
         this.category = category;
     }
 
-    public Date getNgayTao() {
-        return ngayTao;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setNgayTao(Date ngayTao) {
-        this.ngayTao = ngayTao;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public Date getNgayThayDoi() {
-        return ngayThayDoi;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setNgayThayDoi(Date ngayThayDoi) {
-        this.ngayThayDoi = ngayThayDoi;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public Date getTaoBoi() {
-        return taoBoi;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setTaoBoi(Date taoBoi) {
-        this.taoBoi = taoBoi;
+    public String getUpdateBy() {
+        return updateBy;
     }
 
-    public Date getThayDoiBoi() {
-        return thayDoiBoi;
-    }
-
-    public void setThayDoiBoi(Date thayDoiBoi) {
-        this.thayDoiBoi = thayDoiBoi;
-    }
-
-    public News(Long id, String thumbnail, @NotBlank(message = "Thông tin không được để trống") String tieuDe, @Size(max = 200) String moTaNgan, @NotBlank(message = "Thông tin không được bỏ trống") String noiDung, Category category, @NotBlank(message = "Thông tin không được bỏ trống") Date ngayTao, @NotBlank(message = "Thông tin không được bỏ trống") Date ngayThayDoi, @NotBlank(message = "Thông tin không được bỏ trống") Date taoBoi, @NotBlank(message = "Thông tin không được bỏ trống") Date thayDoiBoi) {
+    public News(Long id, String thumbnail, @NotBlank(message = "Thông tin không được để trống") String title, @Size(max = 200) String shortDesciption, @NotBlank(message = "Thông tin không được bỏ trống") String content, Category category, Date createDate, Date updateDate, String createBy, String updateBy) {
         this.id = id;
         this.thumbnail = thumbnail;
-        this.tieuDe = tieuDe;
-        this.moTaNgan = moTaNgan;
-        this.noiDung = noiDung;
+        this.title = title;
+        this.shortDesciption = shortDesciption;
+        this.content = content;
         this.category = category;
-        this.ngayTao = ngayTao;
-        this.ngayThayDoi = ngayThayDoi;
-        this.taoBoi = taoBoi;
-        this.thayDoiBoi = thayDoiBoi;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
     }
 }

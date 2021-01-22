@@ -1,13 +1,23 @@
 package pvars.arsenalquan.models;
 
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Id
@@ -24,10 +34,24 @@ public class User {
 
     @NotBlank(message = "Thông tin không được bỏ trống")
     @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự")
-    private String hoTen;
+    private String fullName;
 
     @Size(max = 30)
-    private String trangThai;
+    private String status;
+
+    @CreationTimestamp
+//    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    @UpdateTimestamp
+//    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
+
+    @CreatedBy
+    private String createBy;
+
+    @LastModifiedBy
+    private String updateBy;
 
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"),
@@ -39,10 +63,6 @@ public class User {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -61,20 +81,20 @@ public class User {
         this.password = password;
     }
 
-    public String getHoTen() {
-        return hoTen;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getTrangThai() {
-        return trangThai;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Role> getRoles() {
@@ -85,12 +105,32 @@ public class User {
         this.roles = roles;
     }
 
-    public User(Long id, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String username, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String password, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String hoTen, @Size(max = 30) String trangThai, List<Role> roles) {
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public User(Long id, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String username, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String password, @NotBlank(message = "Thông tin không được bỏ trống") @Size(min = 3, max = 50, message = "Thông tin phải nhiều hơn 3 và ít hơn 50 ký tự") String fullName, @Size(max = 30) String status, Date createDate, Date updateDate, String createBy, String updateBy, List<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.hoTen = hoTen;
-        this.trangThai = trangThai;
+        this.fullName = fullName;
+        this.status = status;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
         this.roles = roles;
     }
 }
